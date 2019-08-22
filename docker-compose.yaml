@@ -1,0 +1,109 @@
+---
+version: '3.4'
+
+x-var: &BACKEND_IMAGE
+  "base_flask_backend:latest"
+
+services:
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - 8025:8025  # access mailhog's webmail interface at localhost:8025
+    expose:
+      - 1025
+
+  postgres:
+    image: postgres:11.2
+    ports:
+      - 5442:5432  # access the dev db at localhost:5442
+    networks:
+      - common
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql
+      - ./docker/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    image: *BACKEND_IMAGE
+    networks:
+      - common
+    environment:
+      - FLASK_DATABASE_HOST=postgres
+      - FLASK_REDIS_HOST=redis
+    entrypoint:
+      - /flask-entrypoint.sh
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/flask/src
+
+  sphinx_docs:
+    image: *BACKEND_IMAGE
+    environment:
+     - SPHINX_DOCS_HOST=0.0.0.0
+     - SPHINX_DOCS_PORT=5500
+    networks:
+      - common
+    ports:
+      - 5500:5500  # access the app documentation at localhost:5500
+    entrypoint:
+      - /docs-entrypoint.sh
+    volumes:
+      - .:/flask/src
+    depends_on:
+      - backend
+
+  fuse_panel:
+    image: hub.phusionpassenger.com/fuse-panel
+    environment:
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+    volumes:
+      - ./docker/fuse_panel/data:/data
+    networks:
+      - common
+    ports:
+      - 3001:3001
+
+  redis:
+    image: redis:3.2-alpine
+    command: redis-server
+    networks:
+      - common
+    volumes:
+      - ./docker/redis/data:/data
+    expose:
+      - 6379
+
+  celery_worker:
+    image: *BACKEND_IMAGE
+    networks:
+      - common
+    environment:
+      - FLASK_REDIS_HOST=redis
+      - FLASK_MAIL_HOST=mailhog
+      - FLASK_MAIL_PORT=1025
+    entrypoint:
+      - /celery-worker-entrypoint.sh
+    volumes:
+      - .:/flask/src
+    depends_on:
+      - backend
+
+  celery_beat:
+    image: *BACKEND_IMAGE
+    networks:
+      - common
+    environment:
+      - FLASK_REDIS_HOST=redis
+    entrypoint:
+      - /celery-beat-entrypoint.sh
+    volumes:
+      - .:/flask/src
+    depends_on:
+      - backend
+
+networks:
+  common:

@@ -1,0 +1,30 @@
+# config file used to generate requirements.txt
+#
+# pip-compile requirements.in --output-file requirements.txt
+
+flask
+flask-alembic
+flask-apispec
+flask-jwt-extended
+flask-mail
+flask-marshmallow
+flask-restful
+flask-sqlalchemy
+
+appdirs
+bcrypt
+beautifulsoup4
+celery
+elastic-apm[flask]
+jinja2
+jinja2-time
+lxml
+markdown
+marshmallow-sqlalchemy
+redis
+psycopg2
+python-dateutil
+python-frontmatter
+pytz
+tzlocal
+uwsgi

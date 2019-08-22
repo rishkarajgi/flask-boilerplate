@@ -1,0 +1,66 @@
+---
+version: '3.4'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.0.0
+    volumes:
+      - ./docker/monitoring/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - common
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:9200']
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.0.0
+    volumes:
+      - ./docker/monitoring/logstash/logstash.yml:/usr/share/logstash/logstash.yml:ro
+      - ./docker/monitoring/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "5005:5000"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - common
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.0.0
+    ports:
+      - 5601:5601
+    networks:
+      - common
+    volumes:
+      - ./docker/monitoring/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    depends_on:
+      - elasticsearch
+
+  apm:
+    image: docker.elastic.co/apm/apm-server:7.0.0
+    ports:
+      - 8200:8200
+    volumes:
+      - ./docker/monitoring/apm/apm-server.yml:/usr/share/apm-server/config/apm-server.yml:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - common
+
+  backend:
+    depends_on:
+      - apm
+
+  celery_worker:
+    depends_on:
+      - apm
+
+  celery_beat:
+    depends_on:
+      - apm

@@ -1,0 +1,6 @@
+{
+    "admin_panel_url": "ws://fuse_panel:3001/psg_ws_api",
+    "admin_panel_username": "demo",
+    "admin_panel_password": "jJEgMod9c_Shu7rG1nNdpgLiIJVpesMZ_zeplvBf8-Ol1vvwOM67hewKiQ2Id06khvobQiLc6vnIcExeEkU1rx6gvNYF2_rLPqEpcppETGOyID_v4GmJPjvP_rIeDQBOGbg8LaguPyy9LIHv64lmElHQ4xGp00CWE1UuQbkQJ10=",
+    "python": "python3"
+}
