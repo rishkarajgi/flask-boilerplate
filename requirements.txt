@@ -53,4 +53,4 @@ urllib3==1.24.1           # via elastic-apm
 uwsgi==2.0.17.1
 vine==1.1.4               # via amqp
 webargs==5.2.0            # via flask-apispec
-werkzeug==0.14.1          # via flask, flask-jwt-extended
+werkzeug==0.15.3          # via flask, flask-jwt-extended
