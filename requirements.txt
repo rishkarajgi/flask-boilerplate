@@ -4,53 +4,150 @@
 #
 #    pip-compile requirements.in --output-file requirements.txt
 #
-alembic==1.0.0            # via flask-alembic
-amqp==2.3.2               # via kombu
-aniso8601==3.0.2          # via flask-restful
-apispec==1.1.0            # via flask-apispec
+alembic==1.0.0
+    # via flask-alembic
+amqp==2.3.2
+    # via kombu
+aniso8601==3.0.2
+    # via flask-restful
+apispec==1.1.0
+    # via flask-apispec
 appdirs==1.4.3
-arrow==0.12.1             # via jinja2-time
+    # via -r requirements.in
+arrow==0.12.1
+    # via jinja2-time
+backports.functools-lru-cache==1.6.1
+    # via arrow
 bcrypt==3.1.4
+    # via -r requirements.in
 beautifulsoup4==4.6.3
-billiard==3.5.0.4         # via celery
-blinker==1.4              # via elastic-apm, flask-mail
+    # via -r requirements.in
+billiard==3.5.0.4
+    # via celery
+blinker==1.4
+    # via
+    #   elastic-apm
+    #   flask-mail
+cachetools==3.1.1
+    # via elastic-apm
 celery==4.2.1
-certifi==2019.3.9         # via elastic-apm
-cffi==1.11.5              # via bcrypt
-click==6.7                # via flask
+    # via -r requirements.in
+certifi==2019.3.9
+    # via elastic-apm
+cffi==1.11.5
+    # via bcrypt
+click==6.7
+    # via flask
 elastic-apm[flask]==4.2.1
+    # via -r requirements.in
 flask-alembic==2.0.1
+    # via -r requirements.in
 flask-apispec==0.8.0
+    # via -r requirements.in
 flask-jwt-extended==3.18.0
+    # via -r requirements.in
 flask-mail==0.9.1
+    # via -r requirements.in
 flask-marshmallow==0.9.0
+    # via -r requirements.in
 flask-restful==0.3.6
+    # via -r requirements.in
 flask-sqlalchemy==2.3.2
+    # via
+    #   -r requirements.in
+    #   flask-alembic
 flask==1.0.2
-itsdangerous==0.24        # via flask
+    # via
+    #   -r requirements.in
+    #   flask-alembic
+    #   flask-apispec
+    #   flask-jwt-extended
+    #   flask-mail
+    #   flask-marshmallow
+    #   flask-restful
+    #   flask-sqlalchemy
+itsdangerous==0.24
+    # via flask
 jinja2-time==0.2.0
-jinja2==2.10
-kombu==4.2.1              # via celery
+    # via -r requirements.in
+jinja2==2.11.3
+    # via
+    #   -r requirements.in
+    #   flask
+    #   jinja2-time
+kombu==4.2.1
+    # via celery
 lxml==4.2.4
-mako==1.0.7               # via alembic
+    # via -r requirements.in
+mako==1.0.7
+    # via alembic
 markdown==2.6.11
-markupsafe==1.0           # via jinja2, mako
+    # via -r requirements.in
+markupsafe==1.0
+    # via
+    #   jinja2
+    #   mako
 marshmallow-sqlalchemy==0.14.1
-marshmallow==2.15.4       # via flask-apispec, flask-marshmallow, marshmallow-sqlalchemy, webargs
+    # via -r requirements.in
+marshmallow==2.15.4
+    # via
+    #   flask-apispec
+    #   flask-marshmallow
+    #   marshmallow-sqlalchemy
+    #   webargs
 psycopg2==2.7.5
-pycparser==2.18           # via cffi
-pyjwt==1.7.1              # via flask-jwt-extended
+    # via -r requirements.in
+pycparser==2.18
+    # via cffi
+pyjwt==1.7.1
+    # via flask-jwt-extended
 python-dateutil==2.7.3
-python-editor==1.0.3      # via alembic
+    # via
+    #   -r requirements.in
+    #   alembic
+    #   arrow
+python-editor==1.0.3
+    # via alembic
 python-frontmatter==0.4.2
+    # via -r requirements.in
 pytz==2018.5
-pyyaml==3.13              # via python-frontmatter
+    # via
+    #   -r requirements.in
+    #   celery
+    #   flask-restful
+    #   tzlocal
+pyyaml==3.13
+    # via python-frontmatter
 redis==2.10.6
-six==1.11.0               # via bcrypt, flask-apispec, flask-jwt-extended, flask-marshmallow, flask-restful, python-dateutil, python-frontmatter
-sqlalchemy==1.2.10        # via alembic, flask-alembic, flask-sqlalchemy, marshmallow-sqlalchemy
+    # via -r requirements.in
+simplejson==3.17.2
+    # via webargs
+six==1.11.0
+    # via
+    #   bcrypt
+    #   flask-apispec
+    #   flask-jwt-extended
+    #   flask-marshmallow
+    #   flask-restful
+    #   python-dateutil
+    #   python-frontmatter
+sqlalchemy==1.2.10
+    # via
+    #   alembic
+    #   flask-alembic
+    #   flask-sqlalchemy
+    #   marshmallow-sqlalchemy
 tzlocal==1.5.1
-urllib3==1.24.1           # via elastic-apm
+    # via -r requirements.in
+urllib3==1.24.1
+    # via elastic-apm
 uwsgi==2.0.17.1
-vine==1.1.4               # via amqp
-webargs==5.2.0            # via flask-apispec
-werkzeug==0.14.1          # via flask, flask-jwt-extended
+    # via -r requirements.in
+vine==1.1.4
+    # via amqp
+webargs==5.2.0
+    # via flask-apispec
+werkzeug==0.14.1
+    # via
+    #   flask
+    #   flask-jwt-extended
